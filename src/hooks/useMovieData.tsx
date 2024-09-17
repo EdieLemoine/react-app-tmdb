@@ -21,16 +21,11 @@ export const useMovieData = <Movie extends IMovieBase>(movie: Movie): IMovieData
     return new Date(movie.release_date).getFullYear();
   }, [movie.release_date]);
 
-  const posterSrcSm = useMemo(() => createImageUrl(`w200${movie.poster_path}`), [movie.poster_path]);
-  const posterSrcLarge = useMemo(() => createImageUrl(`w500${movie.poster_path}`), [movie.poster_path]);
-
-  const posterAlt = useMemo(() => `${movie.title} poster`, [movie.title]);
-
-  const originalTitle = useMemo(() => {
-    return movie.original_title !== movie.title ? movie.original_title : null;
-  }, [movie.original_title, movie.title]);
-
-  const ageRating = useMemo(() => (movie.adult ? '18+' : 'All ages'), [movie.adult]);
+  const posterSrcSm = createImageUrl(`w200${movie.poster_path}`);
+  const posterSrcLarge = createImageUrl(`w500${movie.poster_path}`);
+  const posterAlt = `${movie.title} poster`;
+  const ageRating = movie.adult ? '18+' : 'All ages';
+  const originalTitle = movie.original_title !== movie.title ? movie.original_title : null;
 
   return {
     ...movie,

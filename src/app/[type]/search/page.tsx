@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { type SearchType } from '@/lib/client/constants';
 import { usePagination } from '@/hooks/usePagination';
@@ -39,12 +39,16 @@ export default function Page() {
   const params = useParams();
   const searchParams = useSearchParams();
 
-  const type = useMemo(() => params.type as SearchType | null, [params]);
-  const query = useMemo(() => searchParams.get('query'), [searchParams]);
+  const type = params.type as SearchType | null;
+  const query = searchParams.get('query');
+
+  useEffect(() => {
+    if (!query || !type) {
+      router.push('/not-found');
+    }
+  }, [query, type, router]);
 
   if (!query || !type) {
-    router.push('/not-found');
-
     return null;
   }
 

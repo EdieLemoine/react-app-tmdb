@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 
 export function Rating({ rating, count }: { rating: number; count: number }) {
-  const ratingString = useMemo(() => {
-    return rating.toFixed(1);
-  }, [rating]);
+  const ratingString = rating.toFixed(1);
 
   const stars = useMemo(() => {
     const num = Math.round(rating);

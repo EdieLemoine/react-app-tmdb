@@ -7,9 +7,7 @@ import { GridLoader } from '@/components/GridLoader';
 import { ErrorMessage } from '@/components/ErrorMessage';
 
 function MovieCastMember({ cast }: { cast: ICast }) {
-  const imageUrl = useMemo(() => {
-    return createImageUrl(`w200${cast.profile_path}`);
-  }, [cast.profile_path]);
+  const imageUrl = createImageUrl(`w200${cast.profile_path}`);
 
   function renderImage() {
     if (!cast.profile_path) {

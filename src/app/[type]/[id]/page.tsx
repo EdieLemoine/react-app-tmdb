@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useMovie } from '@/hooks/query/useMovie';
 import { QueryProvider } from '@/components/provider/QueryProvider';
 import { Button } from '@/components/common/Button/Button';
+import { ErrorMessage } from '@/components/ErrorMessage';
 import { Movie } from '@/app/[type]/[id]/_Movie';
 
 function MoviePage({ id }: { id: number }) {
@@ -19,12 +20,14 @@ export default function Page() {
   const router = useRouter();
 
   if (!idParam) {
-    throw new Error('No id param');
+    const error = new Error('No id provided');
+
+    return <ErrorMessage error={error} />;
   }
 
-  const backButtonHandler = useCallback(() => {
+  const backButtonHandler = () => {
     router.back();
-  }, [router]);
+  };
 
   return (
     <QueryProvider>

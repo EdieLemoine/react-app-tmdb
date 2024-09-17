@@ -15,9 +15,7 @@ export function usePagination() {
 
     mutableSearchParams.set('page', String(page));
 
-    const url = window.location.pathname + '?' + mutableSearchParams.toString();
-
-    router.replace(url);
+    void router.replace(window.location.pathname + '?' + mutableSearchParams.toString());
   }, [page, router, searchParams]);
 
   return {

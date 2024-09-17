@@ -1,15 +1,16 @@
-import { useMemo } from 'react';
 import Link from 'next/link';
 
 export function Excerpt({ text, limit = 100 }: { text: string; limit?: number }) {
-  const isExcerpt = useMemo(() => {
-    return text.length > limit;
-  }, [text, limit]);
+  const isExcerpt = text.length > limit;
+
+  if (!isExcerpt) {
+    return <p>{text}</p>;
+  }
 
   return (
     <p>
-      {isExcerpt ? `${text.slice(0, limit - 3)}...` : text}
-      {isExcerpt && <Link href="#">Read More</Link>}
+      {text.slice(0, limit - 3)}...&nbsp;
+      <Link href="#">Read More</Link>
     </p>
   );
 }

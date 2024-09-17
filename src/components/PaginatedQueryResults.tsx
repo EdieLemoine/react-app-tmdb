@@ -25,10 +25,7 @@ export function PaginatedQueryResults<TData = unknown>({
   const { isPending, isFetching, isError, error, data, isPlaceholderData } = query;
 
   const totalPages = useMemo(() => data?.total_pages ?? 0, [data?.total_pages]);
-
-  const hasMorePages = useMemo(() => {
-    return page < totalPages;
-  }, [totalPages, page]);
+  const hasMorePages = page < totalPages;
 
   const previousButtonHandler = useCallback(() => {
     setPage((old) => Math.max(old - 1, 1));
