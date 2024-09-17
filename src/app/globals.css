@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  a:not(.unstyled) {
+    @apply text-blue-500 hover:text-blue-700 visited:text-purple-500 hover:visited:text-purple-700 underline transition-colors duration-100;
+  }
+}
