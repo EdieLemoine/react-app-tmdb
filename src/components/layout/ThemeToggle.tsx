@@ -32,9 +32,5 @@ export function ThemeToggle() {
     }
   }, [theme]);
 
-  return (
-    <div className="my-auto self-end">
-      <Button onClick={cycleTheme}>{emoji}</Button>
-    </div>
-  );
+  return <Button onClick={cycleTheme}>{emoji}</Button>;
 }
