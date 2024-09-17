@@ -27,6 +27,7 @@ export function Movie({ movie }: { movie: IMovieFull }) {
         <Image
           src={data.poster_src_large}
           alt={data.poster_alt}
+          className="rounded-lg"
           width={500}
           height={600}
         />
@@ -63,7 +64,7 @@ export function Movie({ movie }: { movie: IMovieFull }) {
 
         <div className="ml-auto hidden md:block md:w-2/5">
           <Image
-            className="max-w-96 mx-auto w-full"
+            className="max-w-96 mx-auto w-full rounded-lg"
             src={data.poster_src_large}
             alt={data.poster_alt}
             width={500}

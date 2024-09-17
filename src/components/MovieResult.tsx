@@ -26,8 +26,8 @@ export const MovieResult: FC<{ movie: IMovieSearch }> = ({ movie }) => {
         {data.title} {data.release_year && <>({data.release_year})</>}
       </Heading2>
 
-      <div className="flex flex-col gap-4 lg:flex-row">
-        <div className="flex-grow flex flex-col">
+      <div className="flex flex-col gap-4 lg:flex-row h-full">
+        <div className="flex flex-col flex-grow">
           <Rating
             rating={data.vote_average}
             count={data.vote_count}
@@ -48,12 +48,15 @@ export const MovieResult: FC<{ movie: IMovieSearch }> = ({ movie }) => {
           </Button>
         </div>
 
-        <Image
-          src={data.poster_src_sm}
-          alt={data.poster_alt}
-          width={200}
-          height={300}
-        />
+        <div className="ml-auto">
+          <Image
+            src={data.poster_src_sm}
+            alt={data.poster_alt}
+            className="rounded-lg max-w-36"
+            width={200}
+            height={300}
+          />
+        </div>
       </div>
     </div>
   );

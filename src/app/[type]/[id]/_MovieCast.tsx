@@ -12,7 +12,7 @@ function MovieCastMember({ cast }: { cast: ICast }) {
   function renderImage() {
     if (!cast.profile_path) {
       return (
-        <div className="bg-gray-300 dark:bg-gray-700 flex-grow">
+        <div className="bg-gray-300 dark:bg-gray-700 flex-grow rounded-lg">
           <span className="flex items-center justify-center w-full h-full text-4xl text-gray-500 dark:text-gray-300">
             ?
           </span>
@@ -22,7 +22,7 @@ function MovieCastMember({ cast }: { cast: ICast }) {
 
     return (
       <Image
-        className="object-cover"
+        className="object-cover rounded-lg"
         src={imageUrl}
         alt={cast.name}
         width={150}
