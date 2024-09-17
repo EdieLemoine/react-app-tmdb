@@ -2,7 +2,6 @@
 
 import React, { useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { createGetMovieOptions } from '@/lib/client/query/options/createGetMovieOptions';
 import { useMovie } from '@/hooks/query/useMovie';
 import { QueryProvider } from '@/components/provider/QueryProvider';
 import { Button } from '@/components/common/Button/Button';
@@ -23,14 +22,12 @@ export default function Page() {
     throw new Error('No id param');
   }
 
-  const options = createGetMovieOptions(Number(idParam));
-
   const backButtonHandler = useCallback(() => {
     router.back();
   }, [router]);
 
   return (
-    <QueryProvider prefetch={options}>
+    <QueryProvider>
       <div className="mb-4">
         <Button onClick={backButtonHandler}>&larr; Back</Button>
       </div>

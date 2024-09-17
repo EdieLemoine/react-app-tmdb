@@ -1,11 +1,10 @@
 'use client';
 
-import { createElement, type HTMLAttributes } from 'react';
-import { type ChildrenProps } from '@/types/common.types';
+import { createElement, type HTMLAttributes, type ReactNode } from 'react';
 
 const BASE_CLASS = 'font-bold mt-6 mb-2';
 
-type Props = ChildrenProps & HTMLAttributes<HTMLHeadingElement>;
+type Props = { children: ReactNode } & HTMLAttributes<HTMLHeadingElement>;
 
 const createHeading = (tag: string, className: string, props: Props) => {
   const { children, ...rest } = props;

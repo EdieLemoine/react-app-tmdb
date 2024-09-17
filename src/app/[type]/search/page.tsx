@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { createSearchOptions } from '@/lib/client/query/options/createSearchOptions';
 import { type SearchType } from '@/lib/client/constants';
 import { usePagination } from '@/hooks/usePagination';
 import { useSearch } from '@/hooks/query/useSearch';
@@ -43,22 +42,14 @@ export default function Page() {
   const type = useMemo(() => params.type as SearchType | null, [params]);
   const query = useMemo(() => searchParams.get('query'), [searchParams]);
 
-  const options = useMemo(() => {
-    if (!query || !type) {
-      return null;
-    }
-
-    return createSearchOptions({ type, query });
-  }, [type, query]);
-
-  if (!query || !type || !options) {
+  if (!query || !type) {
     router.push('/not-found');
 
     return null;
   }
 
   return (
-    <QueryProvider prefetch={options}>
+    <QueryProvider>
       <Heading1>Search results for &ldquo;{query}&rdquo;</Heading1>
 
       <SearchResults

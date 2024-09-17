@@ -1,6 +1,5 @@
 'use client';
 
-import { createGetPopularMoviesOptions } from '@/lib/client/query/options/createGetPopularMoviesOptions';
 import { usePagination } from '@/hooks/usePagination';
 import { useMovies } from '@/hooks/query/useMovies';
 import { QueryProvider } from '@/components/provider/QueryProvider';
@@ -32,11 +31,8 @@ function PopularMoviesList() {
 }
 
 export function PopularMovies() {
-  const { page } = usePagination();
-  const options = createGetPopularMoviesOptions(page);
-
   return (
-    <QueryProvider prefetch={options}>
+    <QueryProvider>
       <PopularMoviesList />
     </QueryProvider>
   );
