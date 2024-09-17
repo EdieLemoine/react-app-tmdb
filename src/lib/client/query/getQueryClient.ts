@@ -3,7 +3,13 @@ import { isServer, QueryClient } from '@tanstack/react-query';
 let browserQueryClient: QueryClient | undefined = undefined;
 
 const makeQueryClient = () => {
-  return new QueryClient();
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
 };
 
 export const getQueryClient = () => {

@@ -8,10 +8,3 @@ export const QUERY_KEY_SEARCH = 'search';
 export enum SearchType {
   Movies = 'movies',
 }
-
-export const INITIAL_DATA_PAGINATED_RESPONSE = Object.freeze({
-  results: [],
-  total_results: 0,
-  total_pages: 0,
-  page: 1,
-});

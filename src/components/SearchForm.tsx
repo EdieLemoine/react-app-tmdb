@@ -5,11 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Input } from '@/components/common/Input/Input';
 
 export function SearchForm({ type }: { type: string }) {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [query, setQuery] = useState(() => searchParams.get('query') || '');
-
-  const router = useRouter();
 
   const onSubmit = useCallback(
     (event: FormEvent) => {

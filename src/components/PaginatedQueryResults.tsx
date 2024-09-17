@@ -1,4 +1,4 @@
-import { type ReactElement, type ReactNode, useCallback, useMemo } from 'react';
+import { type ReactElement, type ReactNode, useMemo } from 'react';
 import { type UseQueryResult } from '@tanstack/react-query';
 import { type PaginatedResponse } from '@/types/tmdb.types';
 import { Button } from '@/components/common/Button/Button';
@@ -24,47 +24,50 @@ export function PaginatedQueryResults<TData = unknown>({
 }: PaginatedQueryResultsProps<TData>) {
   const { isPending, isFetching, isError, error, data, isPlaceholderData } = query;
 
-  const totalPages = useMemo(() => data?.total_pages ?? 0, [data?.total_pages]);
-  const hasMorePages = page < totalPages;
-
-  const previousButtonHandler = useCallback(() => {
-    setPage((old) => Math.max(old - 1, 1));
-  }, [setPage]);
-
-  const nextButtonHandler = useCallback(() => {
-    setPage((old) => Math.min(old + 1, totalPages));
-  }, [setPage, totalPages]);
-
   if (isError) {
     return <ErrorMessage error={error} />;
   }
 
-  const paginationButtons = (
-    <div className="py-3">
-      <span>
-        Page {page}/{totalPages}
-      </span>
+  const totalPages = data?.total_pages ?? 0;
 
-      <div className="flex gap-2">
-        <Button
-          onClick={previousButtonHandler}
-          disabled={page === 1}
-        >
-          Previous
-        </Button>
+  const paginationButtons = useMemo(() => {
+    const hasMorePages = page < totalPages;
 
-        <Button
-          onClick={nextButtonHandler}
-          disabled={isPlaceholderData || !hasMorePages}
-        >
-          Next
-        </Button>
+    const previousButtonHandler = () => {
+      setPage((old) => Math.max(old - 1, 1));
+    };
+
+    const nextButtonHandler = () => {
+      setPage((old) => Math.min(old + 1, totalPages));
+    };
+
+    return (
+      <div className="py-3">
+        <span>
+          Page {page}/{totalPages}
+        </span>
+
+        <div className="flex gap-2">
+          <Button
+            onClick={previousButtonHandler}
+            disabled={page === 1}
+          >
+            Previous
+          </Button>
+
+          <Button
+            onClick={nextButtonHandler}
+            disabled={isPlaceholderData || !hasMorePages}
+          >
+            Next
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }, [page, setPage, totalPages, isPlaceholderData]);
 
   const renderContent = () => {
-    if (isPending || isFetching) {
+    if ((isPending || isFetching) && !isPlaceholderData) {
       return LoadingComponent ? <LoadingComponent /> : <Loader />;
     }
 
@@ -72,7 +75,7 @@ export function PaginatedQueryResults<TData = unknown>({
       return <div>No results found</div>;
     }
 
-    return <div className={wrapperClass}>{data.results.map((result) => children(result))}</div>;
+    return <div className={wrapperClass}>{data?.results.map((result) => children(result))}</div>;
   };
 
   return (

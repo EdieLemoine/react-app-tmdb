@@ -3,7 +3,7 @@ import { type PaginatedResponse } from '@/types/tmdb.types';
 import { type SearchResultByType } from '@/types/query.types';
 import { getApi } from '@/lib/client/getApi';
 import { ENDPOINT_SEARCH } from '@/lib/client/endpoints';
-import { INITIAL_DATA_PAGINATED_RESPONSE, QUERY_KEY_SEARCH, type SearchType } from '@/lib/client/constants';
+import { QUERY_KEY_SEARCH, type SearchType } from '@/lib/client/constants';
 
 export const createSearchOptions = <T extends SearchType>({
   type,
@@ -27,7 +27,6 @@ export const createSearchOptions = <T extends SearchType>({
         page: Number(pageParam ?? 1),
       });
     },
-    initialData: INITIAL_DATA_PAGINATED_RESPONSE,
     placeholderData: keepPreviousData,
   } satisfies UseQueryOptions<PaginatedResponse<SearchResultByType<SearchType.Movies>>>);
 };
